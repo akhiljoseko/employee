@@ -30,4 +30,6 @@ class AppTheme {
 
 class AppColors {
   static const white = Color(0xFFFFFFFF);
+  static const grey = Color(0xFFf2f2f2);
+  static const blue = Color(0xFF1DA1F2);
 }
