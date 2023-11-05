@@ -1,5 +1,6 @@
 import 'package:employee/app/app_icons.dart';
-import 'package:employee/view/widgets/gap.dart';
+import 'package:employee/app/app_theme.dart';
+import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,7 +18,7 @@ class AddEditEmployeeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
-              const VGap(16),
+              const Vspace(16),
               TextFormField(
                 decoration: InputDecoration(
                   label: const Text("Employee name"),
@@ -32,7 +33,7 @@ class AddEditEmployeeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const VGap(18),
+              const Vspace(18),
               TextFormField(
                 canRequestFocus: false,
                 onTap: _openRoleDropDown,
@@ -58,7 +59,7 @@ class AddEditEmployeeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const VGap(18),
+              const Vspace(18),
               Row(
                 children: [
                   Expanded(
@@ -99,6 +100,36 @@ class AddEditEmployeeScreen extends StatelessWidget {
                   ),
                 ],
               )
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Material(
+        elevation: 15,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  fixedSize: const Size(75, 40),
+                  foregroundColor: AppColors.blue,
+                  backgroundColor: AppColors.blue.withOpacity(.12),
+                ),
+                child: const Text("Cancel"),
+              ),
+              const Hspace(16),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(75, 40),
+                  foregroundColor: AppColors.white,
+                  backgroundColor: AppColors.blue,
+                ),
+                child: const Text("Save"),
+              ),
             ],
           ),
         ),
