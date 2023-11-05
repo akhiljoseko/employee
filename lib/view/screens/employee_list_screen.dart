@@ -1,10 +1,12 @@
 import 'package:employee/app/app_icons.dart';
+import 'package:employee/app/route_names.dart';
 import 'package:employee/view/providers/employees_list_provider.dart';
 import 'package:employee/view/widgets/employee_list_tile.dart';
 import 'package:employee/view/widgets/empty_list_info.dart';
 import 'package:employee/view/widgets/list_heading_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class EmployeeListScreen extends StatelessWidget {
@@ -24,7 +26,7 @@ class EmployeeListScreen extends StatelessWidget {
               Radius.circular(12),
             ),
           ),
-          onPressed: _addEmployee,
+          onPressed: () => _addEmployee(context),
           child: SvgPicture.asset(AppIcons.add),
         ),
         body: Consumer<EmployeesListProvider>(
@@ -73,8 +75,8 @@ class EmployeeListScreen extends StatelessWidget {
     );
   }
 
-  void _addEmployee() {
-    //TODO: Add employee
+  void _addEmployee(BuildContext context) {
+    context.goNamed(RouteNames.addEmployee);
   }
 
   void _deleteEmployee() {
