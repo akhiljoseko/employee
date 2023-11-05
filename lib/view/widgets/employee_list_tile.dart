@@ -34,7 +34,7 @@ class EmployeeListTile extends StatelessWidget {
             onPressed: (context) => onDeleted,
             backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
-            icon: Icons.delete,
+            icon: Icons.delete_outline,
             label: 'Delete',
           ),
         ],
