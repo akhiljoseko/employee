@@ -1,4 +1,5 @@
 import 'package:employee/app/app_icons.dart';
+import 'package:employee/app/app_theme.dart';
 import 'package:employee/app/route_names.dart';
 import 'package:employee/view/providers/employees_list_provider.dart';
 import 'package:employee/view/widgets/employee_list_tile.dart';
@@ -67,6 +68,21 @@ class EmployeeListScreen extends StatelessWidget {
                     );
                   },
                 ),
+                SliverToBoxAdapter(
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: AppColors.grey,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 24, horizontal: 12),
+                      child: Text(
+                        "Swipe left to delete",
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    ),
+                  ),
+                )
               ],
             );
           },
