@@ -16,6 +16,7 @@ class AppTheme {
       labelMedium: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 14,
+        color: AppColors.labelGrey,
       ),
     ),
     appBarTheme: const AppBarTheme(
@@ -31,5 +32,6 @@ class AppTheme {
 class AppColors {
   static const white = Color(0xFFFFFFFF);
   static const grey = Color(0xFFf2f2f2);
+  static const labelGrey = Color(0xFF949C9E);
   static const blue = Color(0xFF1DA1F2);
 }
