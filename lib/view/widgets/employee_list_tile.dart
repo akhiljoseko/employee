@@ -1,4 +1,4 @@
-import 'package:employee/view/widgets/gap.dart';
+import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -65,12 +65,12 @@ class EmployeeListTile extends StatelessWidget {
                 "Samantha Lee",
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const VGap(10),
+              const Vspace(10),
               Text(
                 "Full stack developer",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
-              const VGap(10),
+              const Vspace(10),
               Text(
                 _timeRange,
                 style: Theme.of(context).textTheme.labelMedium,
