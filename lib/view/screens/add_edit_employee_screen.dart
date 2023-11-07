@@ -45,7 +45,10 @@ class AddEditEmployeeScreen extends StatelessWidget {
                       onRoleSelected: (role) {},
                     ),
                     const Vspace(18),
-                    const FromToDateInput(),
+                    FromToDateInput(
+                      onFromDateSelected: (fromDate) {},
+                      ontoDateSelected: (toDate) {},
+                    ),
                   ],
                 ),
               ),

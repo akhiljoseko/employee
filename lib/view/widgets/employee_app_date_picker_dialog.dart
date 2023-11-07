@@ -15,15 +15,15 @@ class EmployeeAppDatePickerDialog extends StatefulWidget {
     required this.firstDate,
     required this.lastDate,
     this.currentDate,
-    required this.onDateChanged,
+    required this.onDateSelected,
     this.buttons = const [],
   });
 
-  final DateTime initialDate;
+  final DateTime? initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
   final DateTime? currentDate;
-  final void Function(DateTime date) onDateChanged;
+  final void Function(DateTime? date) onDateSelected;
 
   final List<CalendarButtonData> buttons;
 
@@ -34,6 +34,12 @@ class EmployeeAppDatePickerDialog extends StatefulWidget {
 
 class _EmployeeAppDatePickerDialogState
     extends State<EmployeeAppDatePickerDialog> {
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = widget.initialDate;
+  }
+
   DateTime? _selectedDate;
 
   double get _gridHeight {
@@ -78,20 +84,23 @@ class _EmployeeAppDatePickerDialogState
                           physics: const NeverScrollableScrollPhysics(),
                           children: widget.buttons
                               .map(
-                                (data) => CustomDateButton(
+                                (data) => _CustomDateButton(
                                   data: data,
-                                  isSelected: false,
+                                  isSelected: DateUtils.isSameDay(
+                                      _selectedDate, data.dateToBeSelected),
+                                  onPressed: () => _handleDateSelection(
+                                    data.dateToBeSelected,
+                                  ),
                                 ),
                               )
                               .toList()),
                     ),
                   ),
                 CalendarDatePicker(
-                  initialDate: widget.initialDate,
+                  initialDate: _selectedDate ?? DateTime.now(),
                   firstDate: widget.firstDate,
                   lastDate: widget.lastDate,
-                  currentDate: widget.currentDate,
-                  onDateChanged: widget.onDateChanged,
+                  onDateChanged: _handleDateSelection,
                 ),
                 const Divider(
                   color: AppColors.grey,
@@ -114,9 +123,9 @@ class _EmployeeAppDatePickerDialogState
                       const Spacer(),
                       SaveAndCancelButton(
                         onCancelPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.pop(context);
                         },
-                        onSavePressed: () {},
+                        onSavePressed: _handleDateSelectionConfirmation,
                       )
                     ],
                   ),
@@ -128,35 +137,49 @@ class _EmployeeAppDatePickerDialogState
       ),
     );
   }
+
+  void _handleDateSelection(DateTime? value) {
+    _selectedDate = value;
+    setState(() {});
+  }
+
+  void _handleDateSelectionConfirmation() {
+    widget.onDateSelected.call(_selectedDate);
+    Navigator.pop(context);
+  }
 }
 
-class CustomDateButton extends StatelessWidget {
-  const CustomDateButton({
-    super.key,
+class _CustomDateButton extends StatelessWidget {
+  const _CustomDateButton({
     required this.isSelected,
     required this.data,
+    required this.onPressed,
   });
 
   final bool isSelected;
   final CalendarButtonData data;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        color: isSelected
-            ? AppColors.blue
-            : AppColors.blue.withOpacity(
-                .15,
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: isSelected
+              ? AppColors.blue
+              : AppColors.blue.withOpacity(
+                  .15,
+                ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          data.buttonName,
+          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: isSelected ? AppColors.white : AppColors.blue,
               ),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        data.buttonName,
-        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: isSelected ? AppColors.white : AppColors.blue,
-            ),
+        ),
       ),
     );
   }

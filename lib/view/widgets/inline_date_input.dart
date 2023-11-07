@@ -10,10 +10,12 @@ class InlineDateInput extends StatefulWidget {
     super.key,
     required this.initialDate,
     required this.onDateSelected,
+    required this.customCalendarButtons,
   });
 
   final DateTime? initialDate;
-  final void Function(DateTime date) onDateSelected;
+  final void Function(DateTime? date) onDateSelected;
+  final List<CalendarButtonData> customCalendarButtons;
 
   @override
   State<InlineDateInput> createState() => _InlineDateInputState();
@@ -60,31 +62,20 @@ class _InlineDateInputState extends State<InlineDateInput> {
       useRootNavigator: true,
       builder: (BuildContext context) {
         return EmployeeAppDatePickerDialog(
-          currentDate: DateTime.now(),
           firstDate: DateTime(2000),
           lastDate: DateTime(2100),
-          onDateChanged: (d) {},
-          initialDate: DateTime(2023, 11, 10),
-          buttons: [
-            CalendarButtonData(
-              buttonName: "Today",
-              dateToBeSelected: DateTime.now(),
-            ),
-            CalendarButtonData(
-              buttonName: "Tomorrow",
-              dateToBeSelected: DateTime.now().add(const Duration(days: 1)),
-            ),
-            CalendarButtonData(
-              buttonName: "Today",
-              dateToBeSelected: DateTime.now(),
-            ),
-            CalendarButtonData(
-              buttonName: "Tomorrow",
-              dateToBeSelected: DateTime.now().add(const Duration(days: 1)),
-            ),
-          ],
+          onDateSelected: _handleDateSelection,
+          initialDate: _selectedDate,
+          buttons: widget.customCalendarButtons,
         );
       },
     );
+  }
+
+  void _handleDateSelection(DateTime? date) {
+    widget.onDateSelected.call(_selectedDate);
+    _selectedDate = date;
+    _controller.text =
+        DateTImeUtils.dateTimeCustomFormat(_selectedDate, "d MMM yyyy");
   }
 }
