@@ -5,6 +5,8 @@ import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../widgets/from_to_date_input.dart';
+
 class AddEditEmployeeScreen extends StatelessWidget {
   const AddEditEmployeeScreen({super.key});
 
@@ -16,76 +18,39 @@ class AddEditEmployeeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                children: [
-                  const Vspace(16),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      label: const Text("Employee name"),
-                      prefixIcon: SvgPicture.asset(
-                        AppIcons.person_outlined,
-                        width: 24,
-                        height: 24,
-                        fit: BoxFit.contain,
-                      ),
-                      prefixIconConstraints: BoxConstraints.tight(
-                        const Size(48, 24),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Column(
+                  children: [
+                    const Vspace(16),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        label: const Text("Employee name"),
+                        prefixIcon: SvgPicture.asset(
+                          AppIcons.person_outlined,
+                          width: 24,
+                          height: 24,
+                          fit: BoxFit.contain,
+                        ),
+                        prefixIconConstraints: BoxConstraints.tight(
+                          const Size(48, 24),
+                        ),
                       ),
                     ),
-                  ),
-                  const Vspace(18),
-                  RoleSelectionInputField(
-                    onRoleSelected: (role) {},
-                  ),
-                  const Vspace(18),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            label: const Text("Today"),
-                            prefixIcon: SvgPicture.asset(
-                              AppIcons.calendar_outlined,
-                              width: 24,
-                              height: 24,
-                              fit: BoxFit.contain,
-                            ),
-                            prefixIconConstraints: BoxConstraints.tight(
-                              const Size(48, 24),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: SvgPicture.asset(AppIcons.arrow_right),
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            label: const Text("No Date"),
-                            prefixIcon: SvgPicture.asset(
-                              AppIcons.calendar_outlined,
-                              width: 24,
-                              height: 24,
-                              fit: BoxFit.contain,
-                            ),
-                            prefixIconConstraints: BoxConstraints.tight(
-                              const Size(48, 24),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    const Vspace(18),
+                    RoleSelectionInputField(
+                      onRoleSelected: (role) {},
+                    ),
+                    const Vspace(18),
+                    const FromToDateInput(),
+                  ],
+                ),
               ),
             ),
           ),
-          const Spacer(),
+          // const Spacer(),
           Container(
             decoration: const BoxDecoration(
                 border: Border(top: BorderSide(color: AppColors.grey))),
@@ -118,10 +83,5 @@ class AddEditEmployeeScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _openRoleDropDown() {
-    //TODO: Role drop down
-    print("Role drop down");
   }
 }
