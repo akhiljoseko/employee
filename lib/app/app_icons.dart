@@ -9,4 +9,6 @@ class AppIcons {
   static const calendar_outlined = "${_location}calendar_outlined.svg";
   static const arrow_right = "${_location}arrow_right.svg";
   static const arrow_drop_down = "${_location}arrow_drop_down.svg";
+  static const drop_down_arrow_left = "${_location}drop_down_arrow_left.svg";
+  static const drop_down_arrow_right = "${_location}drop_down_arrow_right.svg";
 }
