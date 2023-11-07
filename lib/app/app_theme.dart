@@ -63,4 +63,5 @@ class AppColors {
   static const labelGrey = Color(0xFF949C9E);
   static const inputBorderGrey = Color(0xFFE5E5E5);
   static const blue = Color(0xFF1DA1F2);
+  static const calendarDayBlack = Color(0xFF323238);
 }
