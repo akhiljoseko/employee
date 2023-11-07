@@ -1,5 +1,6 @@
 import 'package:employee/app/app_icons.dart';
 import 'package:employee/app/app_theme.dart';
+import 'package:employee/view/screen_args/add_edit_employee_screen_args.dart';
 import 'package:employee/view/widgets/role_selection_input_field.dart';
 import 'package:employee/view/widgets/save_and_cancel_buttons.dart';
 import 'package:employee/view/widgets/space.dart';
@@ -10,7 +11,12 @@ import 'package:go_router/go_router.dart';
 import '../widgets/from_to_date_input.dart';
 
 class AddEditEmployeeScreen extends StatelessWidget {
-  const AddEditEmployeeScreen({super.key});
+  const AddEditEmployeeScreen({
+    super.key,
+    required this.args,
+  });
+
+  final AddEditEmployeeScreenArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,7 @@ class AddEditEmployeeScreen extends StatelessWidget {
                   children: [
                     const Vspace(16),
                     TextFormField(
+                      initialValue: args.name,
                       decoration: InputDecoration(
                         label: const Text("Employee name"),
                         prefixIcon: SvgPicture.asset(
@@ -47,6 +54,8 @@ class AddEditEmployeeScreen extends StatelessWidget {
                     ),
                     const Vspace(18),
                     FromToDateInput(
+                      fromDate: args.fromDate,
+                      toDate: args.toDate,
                       onFromDateSelected: (fromDate) {},
                       ontoDateSelected: (toDate) {},
                     ),

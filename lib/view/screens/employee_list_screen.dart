@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:employee/app/app_icons.dart';
 import 'package:employee/app/app_theme.dart';
 import 'package:employee/app/route_names.dart';
+import 'package:employee/domain/models/employee.dart';
 import 'package:employee/view/providers/employees_list_provider.dart';
 import 'package:employee/view/widgets/employee_list_tile.dart';
 import 'package:employee/view/widgets/empty_list_info.dart';
@@ -46,8 +49,15 @@ class EmployeeListScreen extends StatelessWidget {
                         headingText: "Current employees",
                       );
                     }
+                    final employee = Employee(
+                      id: Random().nextInt(500),
+                      name: "Samantha Lee",
+                      roleId: 2,
+                      fromDate: DateTime(2023, 10, 23),
+                    );
                     return EmployeeListTile(
-                      key: ValueKey<String>("cur$index"),
+                      key: ValueKey<int>(employee.id!),
+                      employee: employee,
                       isExpiredEmployee: false,
                       onDeleted: _deleteEmployee,
                     );
@@ -61,8 +71,16 @@ class EmployeeListScreen extends StatelessWidget {
                         headingText: "Previous employees",
                       );
                     }
+                    final employee = Employee(
+                      id: Random().nextInt(500),
+                      name: "James Lee",
+                      roleId: 2,
+                      fromDate: DateTime(2022, 8, 1),
+                      toDate: DateTime(2023, 10, 30),
+                    );
                     return EmployeeListTile(
-                      key: ValueKey<String>("exp$index"),
+                      key: ValueKey<int>(employee.id!),
+                      employee: employee,
                       isExpiredEmployee: true,
                       onDeleted: _deleteEmployee,
                     );
