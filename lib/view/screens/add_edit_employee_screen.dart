@@ -1,6 +1,7 @@
 import 'package:employee/app/app_icons.dart';
 import 'package:employee/app/app_theme.dart';
 import 'package:employee/view/widgets/role_selection_input_field.dart';
+import 'package:employee/view/widgets/save_and_cancel_buttons.dart';
 import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,34 +51,13 @@ class AddEditEmployeeScreen extends StatelessWidget {
               ),
             ),
           ),
-          // const Spacer(),
           Container(
             decoration: const BoxDecoration(
                 border: Border(top: BorderSide(color: AppColors.grey))),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    fixedSize: const Size(75, 40),
-                    foregroundColor: AppColors.blue,
-                    backgroundColor: AppColors.blue.withOpacity(.12),
-                  ),
-                  child: const Text("Cancel"),
-                ),
-                const Hspace(16),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(75, 40),
-                    foregroundColor: AppColors.white,
-                    backgroundColor: AppColors.blue,
-                  ),
-                  child: const Text("Save"),
-                ),
-              ],
+            child: SaveAndCancelButton(
+              onCancelPressed: () {},
+              onSavePressed: () {},
             ),
           ),
         ],
