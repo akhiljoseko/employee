@@ -90,7 +90,7 @@ class FromToDateInput extends StatelessWidget {
   DateTime get _nextTuesday {
     final today = DateTime.now();
     if (today.weekday == 2) return _sameDayOnNextWeek;
-    int daysUntilNextTuesday = (9 + today.weekday) % 7;
+    int daysUntilNextTuesday = (9 - today.weekday) % 7;
     return today.add(Duration(days: daysUntilNextTuesday));
   }
 
