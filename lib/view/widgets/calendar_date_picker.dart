@@ -78,7 +78,7 @@ class CalendarDatePicker extends StatefulWidget {
   /// [initialDate].
   CalendarDatePicker({
     super.key,
-    required DateTime initialDate,
+    required DateTime? initialDate,
     required DateTime firstDate,
     required DateTime lastDate,
     DateTime? currentDate,
@@ -86,7 +86,8 @@ class CalendarDatePicker extends StatefulWidget {
     this.onDisplayedMonthChanged,
     this.initialCalendarMode = DatePickerMode.day,
     this.selectableDayPredicate,
-  })  : initialDate = DateUtils.dateOnly(initialDate),
+  })  : initialDate =
+            initialDate == null ? null : DateUtils.dateOnly(initialDate),
         firstDate = DateUtils.dateOnly(firstDate),
         lastDate = DateUtils.dateOnly(lastDate),
         currentDate = DateUtils.dateOnly(currentDate ?? DateTime.now()) {
@@ -95,22 +96,22 @@ class CalendarDatePicker extends StatefulWidget {
       'lastDate ${this.lastDate} must be on or after firstDate ${this.firstDate}.',
     );
     assert(
-      !this.initialDate.isBefore(this.firstDate),
+      !(this.initialDate?.isBefore(this.firstDate) ?? false),
       'initialDate ${this.initialDate} must be on or after firstDate ${this.firstDate}.',
     );
     assert(
-      !this.initialDate.isAfter(this.lastDate),
+      !(this.initialDate?.isAfter(this.lastDate) ?? false),
       'initialDate ${this.initialDate} must be on or before lastDate ${this.lastDate}.',
     );
     assert(
       selectableDayPredicate == null ||
-          selectableDayPredicate!(this.initialDate),
+          selectableDayPredicate!(this.initialDate!),
       'Provided initialDate ${this.initialDate} must satisfy provided selectableDayPredicate.',
     );
   }
 
   /// The initially selected [DateTime] that the picker should display.
-  final DateTime initialDate;
+  final DateTime? initialDate;
 
   /// The earliest allowable [DateTime] that the user can select.
   final DateTime firstDate;
@@ -122,7 +123,7 @@ class CalendarDatePicker extends StatefulWidget {
   final DateTime currentDate;
 
   /// Called when the user selects a date in the picker.
-  final ValueChanged<DateTime> onDateChanged;
+  final ValueChanged<DateTime?> onDateChanged;
 
   /// Called when the user navigates to a new month/year in the picker.
   final ValueChanged<DateTime>? onDisplayedMonthChanged;
@@ -141,18 +142,22 @@ class _CalendarDatePickerState extends State<CalendarDatePicker> {
   bool _announcedInitialDate = false;
   late DatePickerMode _mode;
   late DateTime _currentDisplayedMonthDate;
-  late DateTime _selectedDate;
+  late DateTime? _selectedDate;
   final GlobalKey _monthPickerKey = GlobalKey();
   final GlobalKey _yearPickerKey = GlobalKey();
   late MaterialLocalizations _localizations;
   late TextDirection _textDirection;
 
+  final DateTime currentDateTime = DateTime.now();
+
   @override
   void initState() {
     super.initState();
     _mode = widget.initialCalendarMode;
-    _currentDisplayedMonthDate =
-        DateTime(widget.initialDate.year, widget.initialDate.month);
+
+    _currentDisplayedMonthDate = widget.initialDate == null
+        ? DateTime(currentDateTime.year, currentDateTime.month)
+        : DateTime(widget.initialDate!.year, widget.initialDate!.month);
     _selectedDate = widget.initialDate;
   }
 
@@ -163,8 +168,9 @@ class _CalendarDatePickerState extends State<CalendarDatePicker> {
       _mode = widget.initialCalendarMode;
     }
     if (!DateUtils.isSameDay(widget.initialDate, oldWidget.initialDate)) {
-      _currentDisplayedMonthDate =
-          DateTime(widget.initialDate.year, widget.initialDate.month);
+      _currentDisplayedMonthDate = widget.initialDate == null
+          ? DateTime(currentDateTime.year, currentDateTime.month)
+          : DateTime(widget.initialDate!.year, widget.initialDate!.month);
       _selectedDate = widget.initialDate;
     }
   }
@@ -184,7 +190,9 @@ class _CalendarDatePickerState extends State<CalendarDatePicker> {
       final String semanticLabelSuffix =
           isToday ? ', ${_localizations.currentDateLabel}' : '';
       SemanticsService.announce(
-        '${_localizations.formatFullDate(_selectedDate)}$semanticLabelSuffix',
+        _selectedDate == null
+            ? "No date selected"
+            : '${_localizations.formatFullDate(_selectedDate!)}$semanticLabelSuffix',
         _textDirection,
       );
     }
@@ -209,12 +217,16 @@ class _CalendarDatePickerState extends State<CalendarDatePicker> {
       _mode = mode;
       if (_mode == DatePickerMode.day) {
         SemanticsService.announce(
-          _localizations.formatMonthYear(_selectedDate),
+          _selectedDate == null
+              ? "No date selected"
+              : _localizations.formatMonthYear(_selectedDate!),
           _textDirection,
         );
       } else {
         SemanticsService.announce(
-          _localizations.formatYear(_selectedDate),
+          _selectedDate == null
+              ? "No date selected"
+              : _localizations.formatYear(_selectedDate!),
           _textDirection,
         );
       }
@@ -444,8 +456,8 @@ class _MonthPicker extends StatefulWidget {
     required this.currentDisplayedMonthDate,
     required this.onPickerModeToggled,
   })  : assert(!firstDate.isAfter(lastDate)),
-        assert(!selectedDate.isBefore(firstDate)),
-        assert(!selectedDate.isAfter(lastDate));
+        assert(!(selectedDate?.isBefore(firstDate) ?? false)),
+        assert(!(selectedDate?.isAfter(lastDate) ?? false));
 
   /// The initial month to display.
   final DateTime initialMonth;
@@ -468,7 +480,7 @@ class _MonthPicker extends StatefulWidget {
   /// The currently selected date.
   ///
   /// This date is highlighted in the picker.
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
 
   /// Called when the user picks a day.
   final ValueChanged<DateTime> onChanged;
@@ -865,13 +877,13 @@ class _DayPicker extends StatefulWidget {
     required this.onChanged,
     this.selectableDayPredicate,
   })  : assert(!firstDate.isAfter(lastDate)),
-        assert(!selectedDate.isBefore(firstDate)),
-        assert(!selectedDate.isAfter(lastDate));
+        assert(!(selectedDate?.isBefore(firstDate) ?? false)),
+        assert(!(selectedDate?.isAfter(lastDate) ?? false));
 
   /// The currently selected date.
   ///
   /// This date is highlighted in the picker.
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
 
   /// The current date at the time the picker is displayed.
   final DateTime currentDate;

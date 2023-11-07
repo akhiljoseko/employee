@@ -97,7 +97,7 @@ class _EmployeeAppDatePickerDialogState
                     ),
                   ),
                 CalendarDatePicker(
-                  initialDate: _selectedDate ?? DateTime.now(),
+                  initialDate: _selectedDate,
                   firstDate: widget.firstDate,
                   lastDate: widget.lastDate,
                   onDateChanged: _handleDateSelection,
