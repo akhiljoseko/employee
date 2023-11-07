@@ -5,6 +5,7 @@ import 'package:employee/view/widgets/save_and_cancel_buttons.dart';
 import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../widgets/from_to_date_input.dart';
 
@@ -59,7 +60,7 @@ class AddEditEmployeeScreen extends StatelessWidget {
                 border: Border(top: BorderSide(color: AppColors.grey))),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: SaveAndCancelButton(
-              onCancelPressed: () {},
+              onCancelPressed: () => context.pop(),
               onSavePressed: () {},
             ),
           ),
