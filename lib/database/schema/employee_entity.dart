@@ -8,6 +8,7 @@ class EmployeeEntity {
 
   late String name;
   late int roleId;
+  late String roleName;
   late DateTime fromDate;
   DateTime? toDate;
   late bool isDeleted;

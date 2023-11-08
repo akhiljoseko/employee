@@ -68,6 +68,7 @@ class AddEditEmployeeProvider extends BaseProvider {
       id: args?.id,
       name: name!,
       roleId: selectedRole!.id,
+      roleName: selectedRole!.role,
       fromDate: fromDate!,
       toDate: toDate,
     );

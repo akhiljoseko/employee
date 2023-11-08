@@ -37,8 +37,13 @@ const EmployeeEntitySchema = CollectionSchema(
       name: r'roleId',
       type: IsarType.long,
     ),
-    r'toDate': PropertySchema(
+    r'roleName': PropertySchema(
       id: 4,
+      name: r'roleName',
+      type: IsarType.string,
+    ),
+    r'toDate': PropertySchema(
+      id: 5,
       name: r'toDate',
       type: IsarType.dateTime,
     )
@@ -64,6 +69,7 @@ int _employeeEntityEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.name.length * 3;
+  bytesCount += 3 + object.roleName.length * 3;
   return bytesCount;
 }
 
@@ -77,7 +83,8 @@ void _employeeEntitySerialize(
   writer.writeBool(offsets[1], object.isDeleted);
   writer.writeString(offsets[2], object.name);
   writer.writeLong(offsets[3], object.roleId);
-  writer.writeDateTime(offsets[4], object.toDate);
+  writer.writeString(offsets[4], object.roleName);
+  writer.writeDateTime(offsets[5], object.toDate);
 }
 
 EmployeeEntity _employeeEntityDeserialize(
@@ -92,7 +99,8 @@ EmployeeEntity _employeeEntityDeserialize(
   object.isDeleted = reader.readBool(offsets[1]);
   object.name = reader.readString(offsets[2]);
   object.roleId = reader.readLong(offsets[3]);
-  object.toDate = reader.readDateTimeOrNull(offsets[4]);
+  object.roleName = reader.readString(offsets[4]);
+  object.toDate = reader.readDateTimeOrNull(offsets[5]);
   return object;
 }
 
@@ -112,6 +120,8 @@ P _employeeEntityDeserializeProp<P>(
     case 3:
       return (reader.readLong(offset)) as P;
     case 4:
+      return (reader.readString(offset)) as P;
+    case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -528,6 +538,142 @@ extension EmployeeEntityQueryFilter
   }
 
   QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'roleName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'roleName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'roleName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'roleName',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'roleName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'roleName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'roleName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'roleName',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'roleName',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
+      roleNameIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'roleName',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterFilterCondition>
       toDateIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -661,6 +807,19 @@ extension EmployeeEntityQuerySortBy
     });
   }
 
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterSortBy> sortByRoleName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roleName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterSortBy>
+      sortByRoleNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roleName', Sort.desc);
+    });
+  }
+
   QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterSortBy> sortByToDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'toDate', Sort.asc);
@@ -740,6 +899,19 @@ extension EmployeeEntityQuerySortThenBy
     });
   }
 
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterSortBy> thenByRoleName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roleName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterSortBy>
+      thenByRoleNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'roleName', Sort.desc);
+    });
+  }
+
   QueryBuilder<EmployeeEntity, EmployeeEntity, QAfterSortBy> thenByToDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'toDate', Sort.asc);
@@ -782,6 +954,13 @@ extension EmployeeEntityQueryWhereDistinct
     });
   }
 
+  QueryBuilder<EmployeeEntity, EmployeeEntity, QDistinct> distinctByRoleName(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'roleName', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<EmployeeEntity, EmployeeEntity, QDistinct> distinctByToDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'toDate');
@@ -818,6 +997,12 @@ extension EmployeeEntityQueryProperty
   QueryBuilder<EmployeeEntity, int, QQueryOperations> roleIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'roleId');
+    });
+  }
+
+  QueryBuilder<EmployeeEntity, String, QQueryOperations> roleNameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'roleName');
     });
   }
 

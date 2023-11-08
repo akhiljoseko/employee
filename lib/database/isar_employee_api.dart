@@ -20,6 +20,7 @@ class IsarEmployeeApi implements EmployeeApi {
     final newEmployee = EmployeeEntity()
       ..name = employee.name
       ..roleId = employee.roleId
+      ..roleName = employee.roleName
       ..fromDate = employee.fromDate
       ..toDate = employee.toDate
       ..isDeleted = false;
@@ -62,6 +63,7 @@ class IsarEmployeeApi implements EmployeeApi {
               id: e.id,
               name: e.name,
               roleId: e.roleId,
+              roleName: e.roleName,
               fromDate: e.fromDate,
               toDate: e.toDate,
             ),
@@ -92,6 +94,7 @@ class IsarEmployeeApi implements EmployeeApi {
     if (employee != null) {
       employee.name = updatedEmployeeDetails.name;
       employee.roleId = updatedEmployeeDetails.roleId;
+      employee.roleName = updatedEmployeeDetails.roleName;
       employee.fromDate = updatedEmployeeDetails.fromDate;
       employee.toDate = updatedEmployeeDetails.toDate;
       final updatedId = await isar?.writeTxn<int?>(
