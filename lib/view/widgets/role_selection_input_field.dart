@@ -9,10 +9,12 @@ class RoleSelectionInputField extends StatefulWidget {
     super.key,
     required this.onRoleSelected,
     this.validator,
+    this.selectedRole,
   });
 
   final void Function(Role role) onRoleSelected;
   final String? Function(Role? value)? validator;
+  final Role? selectedRole;
 
   @override
   State<RoleSelectionInputField> createState() =>
@@ -26,7 +28,8 @@ class _RoleSelectionInputFieldState extends State<RoleSelectionInputField> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _selectedRole = widget.selectedRole;
+    _controller = TextEditingController(text: _selectedRole?.role);
   }
 
   @override
