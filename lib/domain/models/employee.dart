@@ -14,6 +14,16 @@ class Employee extends Equatable {
       required this.fromDate,
       this.toDate});
 
+  Employee copyWith() {
+    return Employee(
+      id: id,
+      name: name,
+      roleId: roleId,
+      fromDate: fromDate,
+      toDate: toDate,
+    );
+  }
+
   @override
   List<Object?> get props => [id, name, roleId];
 }
