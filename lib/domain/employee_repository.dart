@@ -10,4 +10,6 @@ abstract class EmployeeRepository {
 
   Future<Either<CustomException, bool>> undoEmployeeDeletion(
       Employee? lastDeletedEmployee);
+
+  Future<Either<CustomException, bool>> addOrUpdateEmployee(Employee employee);
 }

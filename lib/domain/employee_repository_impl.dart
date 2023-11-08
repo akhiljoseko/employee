@@ -36,4 +36,10 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       Employee? lastDeletedEmployee) async {
     return const Right(true);
   }
+
+  @override
+  Future<Either<CustomException, bool>> addOrUpdateEmployee(
+      Employee employee) async {
+    return const Right(false);
+  }
 }
