@@ -12,6 +12,8 @@ class FromToDateInput extends StatelessWidget {
     this.toDate,
     required this.onFromDateSelected,
     required this.ontoDateSelected,
+    this.fromDateValidator,
+    this.toDateValidator,
   });
 
   final DateTime? fromDate;
@@ -19,6 +21,8 @@ class FromToDateInput extends StatelessWidget {
 
   final void Function(DateTime? fromDate) onFromDateSelected;
   final void Function(DateTime? toDate) ontoDateSelected;
+  final String? Function(DateTime? fromDate)? fromDateValidator;
+  final String? Function(DateTime? fromDate)? toDateValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +33,7 @@ class FromToDateInput extends StatelessWidget {
             initialDate: fromDate,
             customCalendarButtons: _getCalendarButtons(true),
             onDateSelected: onFromDateSelected,
+            validator: fromDateValidator,
           ),
         ),
         Padding(
@@ -40,6 +45,7 @@ class FromToDateInput extends StatelessWidget {
             initialDate: toDate,
             customCalendarButtons: _getCalendarButtons(false),
             onDateSelected: ontoDateSelected,
+            validator: toDateValidator,
           ),
         ),
       ],
