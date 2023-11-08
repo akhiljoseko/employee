@@ -9,14 +9,13 @@ import 'app/employee_app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await IsarEmployeeApi.initApi();
-  final isarApi = IsarEmployeeApi();
 
   runApp(
     MultiProvider(
       providers: [
         Provider<EmployeeRepository>(
           create: (context) => EmployeeRepositoryImpl(
-            employeeApi: isarApi,
+            employeeApi: IsarEmployeeApi(),
           ),
         )
       ],
