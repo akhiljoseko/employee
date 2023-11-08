@@ -29,23 +29,21 @@ class EmployeeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: key,
-      endActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        dismissible: DismissiblePane(
-          onDismissed: onDeleted,
-        ),
-        children: [
-          SlidableAction(
-            onPressed: (context) => onDeleted,
-            backgroundColor: const Color(0xFFFE4A49),
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
-            label: 'Delete',
-          ),
-        ],
+    return Dismissible(
+      background: Container(
+        padding: EdgeInsets.only(left: 16),
+        alignment: Alignment.centerLeft,
+        color: Colors.red,
+        child: Icon(Icons.delete_outline_rounded),
       ),
+      secondaryBackground: Container(
+        padding: EdgeInsets.only(right: 16),
+        alignment: Alignment.centerRight,
+        color: Colors.red,
+        child: Icon(Icons.delete_outline_rounded),
+      ),
+      onDismissed: (d) => onDeleted.call(),
+      key: ObjectKey(employee),
       child: InkWell(
         onTap: () => _editEmployee(context),
         child: Padding(
