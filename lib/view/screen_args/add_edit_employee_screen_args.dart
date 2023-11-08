@@ -27,11 +27,12 @@ class AddEditEmployeeScreenArgs {
 
   factory AddEditEmployeeScreenArgs.fromJson(Map<String, dynamic> json) {
     return AddEditEmployeeScreenArgs(
-      id: int.tryParse(json['id']),
+      id: json['id'] == null ? null : int.tryParse(json['id']),
       name: json['name'],
-      roleId: int.tryParse(json['roleId']),
-      fromDate: DateTime.tryParse(json['fromDate']),
-      toDate: DateTime.tryParse(json['toDate']),
+      roleId: json['roleId'] == null ? null : int.tryParse(json['roleId']),
+      fromDate:
+          json['fromDate'] == null ? null : DateTime.tryParse(json['fromDate']),
+      toDate: json['toDate'] == null ? null : DateTime.tryParse(json['toDate']),
     );
   }
 
