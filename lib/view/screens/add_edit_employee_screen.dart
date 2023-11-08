@@ -1,5 +1,6 @@
 import 'package:employee/app/app_icons.dart';
 import 'package:employee/app/app_theme.dart';
+import 'package:employee/domain/employee_repository.dart';
 import 'package:employee/view/providers/add_edit_employee_provider.dart';
 import 'package:employee/view/screen_args/add_edit_employee_screen_args.dart';
 import 'package:employee/view/widgets/role_selection_input_field.dart';
@@ -33,7 +34,10 @@ class _AddEditEmployeeScreenState extends State<AddEditEmployeeScreen> {
   @override
   void initState() {
     super.initState();
-    provider = AddEditEmployeeProvider();
+    provider = AddEditEmployeeProvider(
+      args: widget.args,
+      employeeRepository: context.read<EmployeeRepository>(),
+    );
   }
 
   @override
@@ -124,9 +128,19 @@ class _AddEditEmployeeScreenState extends State<AddEditEmployeeScreen> {
       });
       return;
     }
-    final result = await provider.save();
-    if (result == true && mounted) {
-      context.pop(true);
+    final isAdded = await provider.save();
+    if (mounted) {
+      if (isAdded == true) {
+        context.pop(true);
+      } else {
+        final snackBar = SnackBar(
+          content: const Text(
+              "An error occured while saving employee details.\nPlease try again"),
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          behavior: SnackBarBehavior.floating,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     }
   }
 }
