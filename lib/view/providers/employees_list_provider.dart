@@ -38,6 +38,7 @@ class EmployeesListProvider extends BaseProvider {
   void undoEmployeeDeletion(Employee deletedEmployee) {
     final newInstanceOfSameEmployee = deletedEmployee.copy();
     employees.insert(lastDeletedIndex, newInstanceOfSameEmployee);
+    employeeRepository.undoEmployeeDeletion(deletedEmployee);
     notifyListeners();
   }
 }
