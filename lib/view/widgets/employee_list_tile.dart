@@ -1,7 +1,10 @@
+import 'package:employee/app/app_icons.dart';
+import 'package:employee/app/app_theme.dart';
 import 'package:employee/domain/models/employee.dart';
 import 'package:employee/utils/date_time_utils.dart';
 import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class EmployeeListTile extends StatelessWidget {
   const EmployeeListTile({
@@ -31,14 +34,14 @@ class EmployeeListTile extends StatelessWidget {
       background: Container(
         padding: const EdgeInsets.only(left: 16),
         alignment: Alignment.centerLeft,
-        color: Colors.red,
-        child: const Icon(Icons.delete_outline_rounded),
+        color: AppColors.red,
+        child: SvgPicture.asset(AppIcons.delete_outlined),
       ),
       secondaryBackground: Container(
         padding: const EdgeInsets.only(right: 16),
         alignment: Alignment.centerRight,
-        color: Colors.red,
-        child: const Icon(Icons.delete_outline_rounded),
+        color: AppColors.red,
+        child: SvgPicture.asset(AppIcons.delete_outlined),
       ),
       onDismissed: (d) => onDeleted.call(),
       key: ObjectKey(employee),

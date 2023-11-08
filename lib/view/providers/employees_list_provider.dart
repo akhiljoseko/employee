@@ -31,14 +31,19 @@ class EmployeesListProvider extends BaseProvider {
   void deleteEmployee(Employee deletedEmployee) {
     lastDeletedIndex = employees.indexOf(deletedEmployee);
     employees.removeAt(lastDeletedIndex);
-    employeeRepository.deleteEmployee(deletedEmployee);
+    if (deletedEmployee.id != null) {
+      employeeRepository.deleteEmployee(deletedEmployee.id!);
+    }
     notifyListeners();
   }
 
   void undoEmployeeDeletion(Employee deletedEmployee) {
     final newInstanceOfSameEmployee = deletedEmployee.copy();
     employees.insert(lastDeletedIndex, newInstanceOfSameEmployee);
-    employeeRepository.undoEmployeeDeletion(deletedEmployee);
+    if (deletedEmployee.id != null) {
+      employeeRepository.undoEmployeeDeletion(deletedEmployee.id!);
+    }
+
     notifyListeners();
   }
 }

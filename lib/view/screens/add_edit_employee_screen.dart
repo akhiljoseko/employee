@@ -53,6 +53,16 @@ class _AddEditEmployeeScreenState extends State<AddEditEmployeeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Employee List"),
+          actions: [
+            // Only if editing employee
+            if (widget.args.id != null)
+              IconButton(
+                onPressed: () => _deleteEmployee(context),
+                icon: SvgPicture.asset(
+                  AppIcons.delete_outlined,
+                ),
+              ),
+          ],
         ),
         body: Consumer<AddEditEmployeeProvider>(
           builder: (context, provider, child) => Form(
@@ -97,6 +107,7 @@ class _AddEditEmployeeScreenState extends State<AddEditEmployeeScreen> {
                             onFromDateSelected: provider.onFromDateChanged,
                             ontoDateSelected: provider.onToDateChanged,
                             fromDateValidator: provider.validateFromDate,
+                            toDateValidator: provider.validateToDate,
                           ),
                         ],
                       ),
@@ -136,6 +147,23 @@ class _AddEditEmployeeScreenState extends State<AddEditEmployeeScreen> {
         final snackBar = SnackBar(
           content: const Text(
               "An error occured while saving employee details.\nPlease try again"),
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          behavior: SnackBarBehavior.floating,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
+  }
+
+  Future<void> _deleteEmployee(BuildContext context) async {
+    final isDeleted = await provider.deleteEmployee();
+    if (mounted) {
+      if (isDeleted == true) {
+        context.pop(true);
+      } else {
+        final snackBar = SnackBar(
+          content: const Text(
+              "An error occured while deleting employee details.\nPlease try again"),
           backgroundColor: Theme.of(context).colorScheme.errorContainer,
           behavior: SnackBarBehavior.floating,
         );

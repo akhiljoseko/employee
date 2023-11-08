@@ -56,6 +56,19 @@ class AddEditEmployeeProvider extends BaseProvider {
     toDate = value;
   }
 
+  String? validateToDate(DateTime? value) {
+    if (value == null) {
+      return null;
+    }
+    if (fromDate == null) {
+      return null;
+    }
+    if (fromDate!.isAfter(value)) {
+      return "Invalid date";
+    }
+    return null;
+  }
+
   String? validateFromDate(DateTime? value) {
     if (value == null) {
       return "Select date";
@@ -84,5 +97,13 @@ class AddEditEmployeeProvider extends BaseProvider {
         Role.roles.firstWhereOrNull((element) => element.id == args?.roleId);
     fromDate = args?.fromDate;
     toDate = args?.toDate;
+  }
+
+  Future<bool> deleteEmployee() async {
+    if (args?.id == null) {
+      return false;
+    }
+    final result = await employeeRepository.deleteEmployee(args!.id!);
+    return result.fold((error) => false, (isDeleted) => isDeleted);
   }
 }

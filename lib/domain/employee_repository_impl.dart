@@ -23,9 +23,9 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
   @override
   Future<Either<CustomException, bool>> deleteEmployee(
-      Employee deletedEmployee) async {
+      int deletedEmployeeId) async {
     try {
-      final isDeleted = await employeeApi.deleteEmployee(deletedEmployee.id!);
+      final isDeleted = await employeeApi.deleteEmployee(deletedEmployeeId);
       return Right(isDeleted);
     } on DatabaseException catch (e) {
       return Left(e);
@@ -36,9 +36,9 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
 
   @override
   Future<Either<CustomException, bool>> undoEmployeeDeletion(
-      Employee deletedEmployee) async {
+      int deletedEmployeeId) async {
     try {
-      final isSuccess = await employeeApi.undoDelete(deletedEmployee.id!);
+      final isSuccess = await employeeApi.undoDelete(deletedEmployeeId);
       return Right(isSuccess);
     } on DatabaseException catch (e) {
       return Left(e);
