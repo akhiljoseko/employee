@@ -150,7 +150,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
     final isDataChanged = await context.pushNamed<bool?>(RouteNames.addEmployee,
         queryParameters: qp);
     if ((isDataChanged ?? false) && mounted) {
-      context.read<EmployeesListProvider>().refresh();
+      provider.refresh();
     }
   }
 
