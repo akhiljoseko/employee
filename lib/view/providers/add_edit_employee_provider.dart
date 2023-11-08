@@ -85,4 +85,12 @@ class AddEditEmployeeProvider extends BaseProvider {
     fromDate = args?.fromDate;
     toDate = args?.toDate;
   }
+
+  Future<bool> deleteEmployee() async {
+    if (args?.id == null) {
+      return false;
+    }
+    final result = await employeeRepository.deleteEmployee(args!.id!);
+    return result.fold((error) => false, (isDeleted) => isDeleted);
+  }
 }
