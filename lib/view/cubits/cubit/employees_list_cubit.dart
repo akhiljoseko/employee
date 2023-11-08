@@ -36,18 +36,21 @@ class EmployeesListCubit extends Cubit<EmployeesListState> {
 
   late int lastDeletedEmployeeIndex;
   void deleteEmployee(Employee deletedEmployee) {
+    emit(state.copyWith(operation: EmployeeListOperation.none));
     employeeRepository.deleteEmployee(deletedEmployee);
     lastDeletedEmployeeIndex = state.employees.indexOf(deletedEmployee);
     state.employees.removeAt(lastDeletedEmployeeIndex);
+    emit(state.copyWith(operation: EmployeeListOperation.deleted));
   }
 
   void undoEmployeeDeletion(Employee deletedEmployee) {
     employeeRepository.undoEmployeeDeletion(deletedEmployee);
-    final newList = state.employees
-      ..insert(lastDeletedEmployeeIndex, deletedEmployee);
-    emit(state.copyWith(
-      status: EmployeesListStateStatus.success,
-      employees: newList,
-    ));
+    state.employees
+        .insert(lastDeletedEmployeeIndex, deletedEmployee.copyWith());
+    emit(state.copyWith(operation: EmployeeListOperation.undo));
+  }
+
+  void refresh() {
+    _getEmployees();
   }
 }
