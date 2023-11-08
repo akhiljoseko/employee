@@ -9,7 +9,7 @@ abstract class EmployeeRepository {
       Employee deletedEmployee);
 
   Future<Either<CustomException, bool>> undoEmployeeDeletion(
-      Employee? lastDeletedEmployee);
+      Employee lastDeletedEmployee);
 
   Future<Either<CustomException, bool>> addOrUpdateEmployee(Employee employee);
 }
