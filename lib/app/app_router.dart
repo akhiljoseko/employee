@@ -1,0 +1,30 @@
+import 'package:employee/app/route_names.dart';
+import 'package:employee/view/screen_args/add_edit_employee_screen_args.dart';
+import 'package:employee/view/screens/add_edit_employee_screen.dart';
+import 'package:employee/view/screens/employee_list_screen.dart';
+import 'package:go_router/go_router.dart';
+
+class AppRouter {
+  static final router = GoRouter(
+    routes: [
+      GoRoute(
+        name: RouteNames.employeeListScreen,
+        path: "/",
+        builder: (context, state) => const EmployeeListScreen(),
+        routes: [
+          GoRoute(
+            name: RouteNames.addEmployee,
+            path: "add",
+            builder: (context, state) {
+              final args =
+                  AddEditEmployeeScreenArgs.fromJson(state.uri.queryParameters);
+              return AddEditEmployeeScreen(
+                args: args,
+              );
+            },
+          ),
+        ],
+      ),
+    ],
+  );
+}
