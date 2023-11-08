@@ -70,7 +70,9 @@ class AddEditEmployeeScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: SaveAndCancelButton(
               onCancelPressed: () => context.pop(),
-              onSavePressed: () {},
+              onSavePressed: () {
+                context.pop(true);
+              },
             ),
           ),
         ],

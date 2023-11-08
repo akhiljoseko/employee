@@ -1,15 +1,15 @@
 import 'package:employee/domain/employee_repository.dart';
 import 'package:employee/domain/employee_repository_impl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'app/employee_app.dart';
 
 void main() {
   runApp(
-    MultiRepositoryProvider(
+    MultiProvider(
       providers: [
-        RepositoryProvider<EmployeeRepository>(
+        Provider<EmployeeRepository>(
           create: (context) => EmployeeRepositoryImpl(),
         )
       ],

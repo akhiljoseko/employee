@@ -14,7 +14,7 @@ class Employee extends Equatable {
       required this.fromDate,
       this.toDate});
 
-  Employee copyWith() {
+  Employee copy() {
     return Employee(
       id: id,
       name: name,
