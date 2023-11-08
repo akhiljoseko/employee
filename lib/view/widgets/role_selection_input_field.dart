@@ -103,7 +103,7 @@ class _RoleSelectionBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: roles
+      children: Role.roles
           .map(
             (role) => InkWell(
               onTap: () {
@@ -134,11 +134,4 @@ class _RoleSelectionBottomSheet extends StatelessWidget {
           .toList(),
     );
   }
-
-  static const roles = [
-    Role(id: 1, role: "Product Designer"),
-    Role(id: 2, role: "Flutter Developer"),
-    Role(id: 3, role: "QA Tester"),
-    Role(id: 4, role: "Product Owner"),
-  ];
 }
