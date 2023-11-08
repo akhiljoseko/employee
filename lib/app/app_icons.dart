@@ -11,4 +11,5 @@ class AppIcons {
   static const arrow_drop_down = "${_location}arrow_drop_down.svg";
   static const drop_down_arrow_left = "${_location}drop_down_arrow_left.svg";
   static const drop_down_arrow_right = "${_location}drop_down_arrow_right.svg";
+  static const delete_outlined = "${_location}delete_outlined.svg";
 }
