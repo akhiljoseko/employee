@@ -57,7 +57,7 @@ class EmployeeListTile extends StatelessWidget {
                 ),
                 const Vspace(10),
                 Text(
-                  "Full stack developer",
+                  employee.roleName,
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const Vspace(10),
