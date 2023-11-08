@@ -11,10 +11,12 @@ class InlineDateInput extends StatefulWidget {
     required this.initialDate,
     required this.onDateSelected,
     required this.customCalendarButtons,
+    this.validator,
   });
 
   final DateTime? initialDate;
   final void Function(DateTime? date) onDateSelected;
+  final String? Function(DateTime?)? validator;
   final List<CalendarButtonData> customCalendarButtons;
 
   @override
@@ -40,6 +42,7 @@ class _InlineDateInputState extends State<InlineDateInput> {
       canRequestFocus: false,
       enableInteractiveSelection: false,
       readOnly: true,
+      validator: (value) => widget.validator?.call(_selectedDate),
       decoration: InputDecoration(
         label: const Text("No Date"),
         prefixIcon: SvgPicture.asset(
@@ -73,7 +76,7 @@ class _InlineDateInputState extends State<InlineDateInput> {
   }
 
   void _handleDateSelection(DateTime? date) {
-    widget.onDateSelected.call(_selectedDate);
+    widget.onDateSelected.call(date);
     _selectedDate = date;
     _controller.text =
         DateTImeUtils.dateTimeCustomFormat(_selectedDate, "d MMM yyyy");
