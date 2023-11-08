@@ -4,7 +4,6 @@ import 'package:employee/utils/date_time_utils.dart';
 import 'package:employee/view/screen_args/add_edit_employee_screen_args.dart';
 import 'package:employee/view/widgets/space.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 
 class EmployeeListTile extends StatelessWidget {
