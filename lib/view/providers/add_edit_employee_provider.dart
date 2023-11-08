@@ -56,6 +56,19 @@ class AddEditEmployeeProvider extends BaseProvider {
     toDate = value;
   }
 
+  String? validateToDate(DateTime? value) {
+    if (value == null) {
+      return null;
+    }
+    if (fromDate == null) {
+      return null;
+    }
+    if (fromDate!.isAfter(value)) {
+      return "Invalid date";
+    }
+    return null;
+  }
+
   String? validateFromDate(DateTime? value) {
     if (value == null) {
       return "Select date";

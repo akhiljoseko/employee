@@ -107,6 +107,7 @@ class _AddEditEmployeeScreenState extends State<AddEditEmployeeScreen> {
                             onFromDateSelected: provider.onFromDateChanged,
                             ontoDateSelected: provider.onToDateChanged,
                             fromDateValidator: provider.validateFromDate,
+                            toDateValidator: provider.validateToDate,
                           ),
                         ],
                       ),
