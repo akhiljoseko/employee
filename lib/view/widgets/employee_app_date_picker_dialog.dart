@@ -57,83 +57,79 @@ class _EmployeeAppDatePickerDialogState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Material(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              children: [
-                const Vspace(12),
-                if (widget.buttons.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: SizedBox(
-                      height: _gridHeight,
-                      child: GridView.count(
-                          crossAxisCount: 2,
-                          childAspectRatio: 4.8,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: widget.buttons
-                              .map(
-                                (data) => _CustomDateButton(
-                                  data: data,
-                                  isSelected: DateUtils.isSameDay(
-                                      _selectedDate, data.dateToBeSelected),
-                                  onPressed: () => _handleDateSelection(
-                                    data.dateToBeSelected,
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Material(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  children: [
+                    const Vspace(12),
+                    if (widget.buttons.isNotEmpty)
+                      Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Wrap(
+                            children: widget.buttons
+                                .map(
+                                  (data) => _CustomDateButton(
+                                    data: data,
+                                    isSelected: DateUtils.isSameDay(
+                                        _selectedDate, data.dateToBeSelected),
+                                    onPressed: () => _handleDateSelection(
+                                      data.dateToBeSelected,
+                                    ),
                                   ),
-                                ),
-                              )
-                              .toList()),
+                                )
+                                .toList(),
+                          )),
+                    CalendarDatePicker(
+                      initialDate: _selectedDate,
+                      firstDate: widget.firstDate,
+                      lastDate: widget.lastDate,
+                      onDateChanged: _handleDateSelection,
                     ),
-                  ),
-                CalendarDatePicker(
-                  initialDate: _selectedDate,
-                  firstDate: widget.firstDate,
-                  lastDate: widget.lastDate,
-                  onDateChanged: _handleDateSelection,
-                ),
-                const Divider(
-                  color: AppColors.grey,
-                  thickness: 2,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: Row(
-                    children: [
-                      Row(
+                    const Divider(
+                      color: AppColors.grey,
+                      thickness: 2,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      child: Row(
                         children: [
-                          SvgPicture.asset(AppIcons.calendar_outlined),
-                          const Hspace(8),
-                          Text(
-                            _formattedSelectedDate,
+                          Row(
+                            children: [
+                              SvgPicture.asset(AppIcons.calendar_outlined),
+                              const Hspace(8),
+                              Text(
+                                _formattedSelectedDate,
+                              )
+                            ],
+                          ),
+                          const Spacer(),
+                          SaveAndCancelButton(
+                            onCancelPressed: () {
+                              Navigator.pop(context);
+                            },
+                            onSavePressed: _handleDateSelectionConfirmation,
                           )
                         ],
                       ),
-                      const Spacer(),
-                      SaveAndCancelButton(
-                        onCancelPressed: () {
-                          Navigator.pop(context);
-                        },
-                        onSavePressed: _handleDateSelectionConfirmation,
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -165,6 +161,9 @@ class _CustomDateButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
+        height: 36,
+        width: 140,
+        margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           color: isSelected
